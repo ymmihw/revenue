@@ -1,0 +1,47 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="template">
+<head>
+<!--{49cdd9d3-a473-4aef-8190-5dc5bf7b3984}-->
+<title>登录</title>
+</head>
+<body>
+ <div layout:fragment="content">
+  <div class="row">
+   <div class="box col-md-3 col-md-offset-4 col-sm-5 col-sm-offset-3">
+    <div class="box-inner">
+     <div class="box-header well" data-original-title="">
+      <h2>
+       <i class="glyphicon glyphicon-th"></i> 登录
+      </h2>
+     </div>
+     <div class="box-content">
+      <form id='myForm' action='/login' method='POST'>
+       <div class="form-group">
+        <label for="inputName" class="control-label">用户名</label>
+        <input type="text" name='username' class="form-control" id="inputName" placeholder="Name" required="required" />
+       </div>
+       <div class="form-group">
+        <label for="inputPassword" class="control-label">密码</label>
+        <input type="password" name='password' class="form-control" id="inputPassword" placeholder="Password" />
+       </div>
+       <div class="has-error">
+        <div class="help-block" th:text="${error}"></div>
+       </div>
+       <div class="form-group">
+        <button type="submit" class="btn btn-primary">登录</button>
+       </div>
+      </form>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+ <div layout:fragment="script">
+  <script th:src="${@mvcResourceUrlProvider.getForLookupPath('/resource/bootstrap-validator/validator.min.js')}"></script>
+  <script type="text/javascript">
+            $(document).ready(function() {
+                $('#myForm').validator();
+            });
+        </script>
+ </div>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false" scan="true" scanPeriod="1 seconds">
+	<property name="LOG_HOME" value="${log.home}/ui" />
+	<!-- 控制台输出 -->
+	<appender name="STDOUT1" class="ch.qos.logback.core.helpers.NOPAppender">
+	</appender>
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{30} -
+				%msg%n</pattern>
+		</encoder>
+	</appender>
+	<!-- 按照每天生成日志文件 -->
+	<appender name="ALL"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<!--日志文件输出的文件名 -->
+			<FileNamePattern>${LOG_HOME}/all.%d{yyyy-MM-dd}.%i.log.gz
+			</FileNamePattern>
+			<maxFileSize>30MB</maxFileSize>
+			<maxHistory>60</maxHistory>
+			<totalSizeCap>1GB</totalSizeCap>
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{30} -
+				%msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="LOADER"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<!--日志文件输出的文件名 -->
+			<FileNamePattern>${LOG_HOME}/loader.%d{yyyy-MM-dd}.%i.log.gz
+			</FileNamePattern>
+			<maxFileSize>30MB</maxFileSize>
+			<maxHistory>60</maxHistory>
+			<totalSizeCap>1GB</totalSizeCap>
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{30} -
+				%msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="UI"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<!--日志文件输出的文件名 -->
+			<FileNamePattern>${LOG_HOME}/ui.%d{yyyy-MM-dd}.%i.log.gz
+			</FileNamePattern>
+			<maxFileSize>30MB</maxFileSize>
+			<maxHistory>60</maxHistory>
+			<totalSizeCap>1GB</totalSizeCap>
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{30} -
+				%msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="MQ"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<!--日志文件输出的文件名 -->
+			<FileNamePattern>${LOG_HOME}/mq.%d{yyyy-MM-dd}.%i.log.gz
+			</FileNamePattern>
+			<maxFileSize>30MB</maxFileSize>
+			<maxHistory>60</maxHistory>
+			<totalSizeCap>1GB</totalSizeCap>
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{30} -
+				%msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="DC"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<!--日志文件输出的文件名 -->
+			<FileNamePattern>${LOG_HOME}/dc.%d{yyyy-MM-dd}.%i.log.gz
+			</FileNamePattern>
+			<maxFileSize>30MB</maxFileSize>
+			<maxHistory>60</maxHistory>
+			<totalSizeCap>1GB</totalSizeCap>
+		</rollingPolicy>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{30} -
+				%msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!-- 日志输出级别 -->
+	<logger name="org.thymeleaf" level="WARN" additivity="false">
+		<appender-ref ref="ALL" />
+		<appender-ref ref="STDOUT" />
+	</logger>
+	<logger name="org.springframework" level="WARN" additivity="false">
+		<appender-ref ref="ALL" />
+		<appender-ref ref="STDOUT" />
+	</logger>
+	<logger name="org.hibernate" level="WARN" additivity="false">
+		<appender-ref ref="ALL" />
+		<appender-ref ref="STDOUT" />
+	</logger>
+	<logger name="org.jboss" level="WARN" additivity="false">
+		<appender-ref ref="ALL" />
+		<appender-ref ref="STDOUT" />
+	</logger>
+	<logger name="org.apache.zookeeper" level="DEBUG" additivity="false">
+		<appender-ref ref="DC" />
+		<appender-ref ref="ALL" />
+	</logger>
+	<logger name="org.I0Itec.zkclient" level="DEBUG" additivity="false">
+		<appender-ref ref="DC" />
+		<appender-ref ref="ALL" />
+	</logger>
+	<logger name="org.jboss" level="WARN" additivity="false">
+		<appender-ref ref="ALL" />
+		<appender-ref ref="STDOUT" />
+	</logger>
+	<logger name="net.sf.ehcache" level="WARN" additivity="false">
+		<appender-ref ref="ALL" />
+		<appender-ref ref="STDOUT" />
+	</logger>
+	<root level="DEBUG">
+		<appender-ref ref="ALL" />
+		<appender-ref ref="STDOUT" />
+	</root>
+</configuration>

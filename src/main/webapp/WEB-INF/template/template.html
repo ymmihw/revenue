@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<title>URCC</title>
+<meta charset="utf-8" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<link rel="stylesheet" type="text/css" th:href="${@mvcResourceUrlProvider.getForLookupPath('/resource/bootstrap/css/bootstrap.min.css')}" />
+<link rel="stylesheet" type="text/css" th:href="${@mvcResourceUrlProvider.getForLookupPath('/resource/bootstrap/css/bootstrap-theme.min.css')}" />
+<link rel="stylesheet" type="text/css" th:href="${@mvcResourceUrlProvider.getForLookupPath('/resource/bootstrap-submenu/css/bootstrap-submenu.min.css')}" />
+<link rel="stylesheet" type="text/css" th:href="${@mvcResourceUrlProvider.getForLookupPath('/resource/css/box.css')}" />
+<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
+<script th:src="${@mvcResourceUrlProvider.getForLookupPath('/resource/jquery/jquery.min.js')}"></script>
+<script type="text/javascript">
+    (function($) {
+        $(document).ready(function() {
+            $('ul.dropdown-menu [data-toggle=dropdown]').on('click', function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+                $(this).parent().siblings().removeClass('open');
+                $(this).parent().toggleClass('open');
+            });
+        });
+    })(jQuery);
+</script>
+</head>
+<body>
+ <div layout:fragment="navbar">
+  <nav class="navbar navbar-default">
+   <div class="container">
+    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+     <span class="sr-only">Toggle navigation</span>
+     <span class="icon-bar"></span>
+     <span class="icon-bar"></span>
+     <span class="icon-bar"></span>
+    </button>
+    <div class="navbar-header">
+     <a class="navbar-brand">URCC</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+     <ul class="nav navbar-nav">
+      <li>
+       <a class="l1" th:href="@{/home.html}">主页</a>
+      </li>
+      <li class="dropdown">
+       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">阅读器</a>
+       <ul class="dropdown-menu" role="menu">
+        <li>
+         <a th:href="@{/reader/readers.html}">阅读器管理</a>
+        </li>
+        <li class="divider"></li>
+        <li>
+         <a th:href="@{/reader/blacklist.html}">黑名单管理</a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a class="l1" th:href="@{/readergroup/readergroups.html}">阅读器组</a>
+      </li>
+      <li class="dropdown">
+       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">标签区</a>
+       <ul class="dropdown-menu" role="menu">
+        <li>
+         <a th:href="@{/tagmemory/buildinTagMemories.html}">内置标签区</a>
+        </li>
+        <li class="divider"></li>
+        <li>
+         <a th:href="@{/tagmemory/customTagMemories.html}">自定义标签区</a>
+        </li>
+       </ul>
+      </li>
+      <li>
+       <a class="l1" th:href="@{/topic/topics.html}">主题</a>
+      </li>
+      <li>
+       <a class="l1" th:href="@{/subscriber/subscribers.html}">订阅者</a>
+      </li>
+      <li>
+       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">运维</a>
+       <ul class="dropdown-menu" role="menu">
+        <li sec:authorize="hasRole('ROLE_ADMIN')">
+         <a class="l1" th:href="@{/node/nodes.html}">节点管理</a>
+        </li>
+        <li sec:authorize="hasRole('ROLE_ADMIN')" class="divider"></li>
+        <li>
+         <a th:href="@{/log/operationLogs.html}">操作日志</a>
+        </li>
+        <li class="divider"></li>
+        <li class="dropdown dropdown-submenu">
+         <a href="#" class="dropdown-toggle" data-toggle="dropdown">告警</a>
+         <ul class="dropdown-menu">
+          <li>
+           <a th:href="@{/alarm/illegalaccess.html}">非法接入</a>
+          </li>
+         </ul>
+        </li>
+        <li class="divider"></li>
+        <li class="dropdown dropdown-submenu">
+         <a href="#" class="dropdown-toggle" data-toggle="dropdown">统计</a>
+         <ul class="dropdown-menu">
+          <li>
+           <a th:href="@{/statistics/reader/readerStatistics.html}">阅读器统计</a>
+          </li>
+          <li>
+           <a th:href="@{/statistics/topic/topicStatistics.html}">主题统计</a>
+          </li>
+          <li>
+           <a th:href="@{/statistics/subscriber/subscriberStatistics.html}">订阅统计</a>
+          </li>
+         </ul>
+        </li>
+        <li class="divider"></li>
+        <li class="dropdown dropdown-submenu">
+         <a href="#" class="dropdown-toggle" data-toggle="dropdown">监控</a>
+         <ul class="dropdown-menu">
+          <li>
+           <a th:href="@{/status/reader/readerStatus.html}">阅读器监控</a>
+          </li>
+          <li>
+           <a th:href="@{/status/subscriber/subscriberStatus.html}">订阅监控</a>
+          </li>
+         </ul>
+        </li>
+       </ul>
+      </li>
+     </ul>
+     <ul class="nav navbar-nav navbar-right">
+      <li sec:authorize="isAnonymous()">
+       <a th:href="@{/login.html}">登录</a>
+      </li>
+      <li sec:authorize="isAuthenticated()">
+       <a th:href="@{/logout}">登出</a>
+      </li>
+     </ul>
+     <ul class="nav navbar-nav navbar-right" sec:authorize="isAuthenticated()">
+      <li>
+       <a>欢迎</a>
+      </li>
+      <li>
+       <a th:text="${#authentication.name}"></a>
+      </li>
+     </ul>
+    </div>
+    <!--/.nav-collapse -->
+   </div>
+   <div class="container" style="padding-top: 10px">
+    <div layout:fragment="breadcrumb" class="breadcrumb"></div>
+   </div>
+  </nav>
+ </div>
+ <div>
+  <div id="main" class="container">
+   <div layout:fragment="css"></div>
+   <div layout:fragment="content"></div>
+   <div layout:fragment="script"></div>
+  </div>
+ </div>
+ <!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+ <script th:src="${@mvcResourceUrlProvider.getForLookupPath('/resource/bootstrap/js/bootstrap.min.js')}"></script>
+ <script th:src="${@mvcResourceUrlProvider.getForLookupPath('/resource/bootstrap-submenu/js/bootstrap-submenu.min.js')}"></script>
+ <script th:src="${@mvcResourceUrlProvider.getForLookupPath('/resource/jquery/jquery.history.min.js')}"></script>
+</body>
+</html>
