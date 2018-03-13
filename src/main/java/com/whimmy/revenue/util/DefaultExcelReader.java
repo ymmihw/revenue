@@ -12,47 +12,46 @@ import org.springframework.stereotype.Component;
 @Component
 public class DefaultExcelReader implements ExcelReader {
 
-  @Override
-  public List<String[]> read(XSSFWorkbook workbook, int sheet, int fromRow, int columnCount) {
-    XSSFSheet xssfSheet = workbook.getSheetAt(sheet);
-    int lastRowNum = xssfSheet.getLastRowNum();
+    @Override
+    public List<String[]> read(XSSFWorkbook workbook, int sheet, int fromRow, int columnCount, int lastRowNum) {
+        XSSFSheet xssfSheet = workbook.getSheetAt(sheet);
 
-    List<String[]> list = new ArrayList<>();
-    String[] ss = null;
-    for (int row = fromRow; row <= lastRowNum; row++) {
-      XSSFRow xssfRow = xssfSheet.getRow(row);
-      if (isNullRow(xssfRow)) {
-        continue;
-      }
-      ss = new String[columnCount];
-      Cell cell = null;
-      for (int col = 0; col < columnCount; col++) {
-        cell = xssfRow.getCell(col);
-        ss[col] = extractCellValue(cell);
-      }
-      list.add(ss);
+        List<String[]> list = new ArrayList<>();
+        String[] ss = null;
+        for (int row = fromRow; row <= lastRowNum; row++) {
+            XSSFRow xssfRow = xssfSheet.getRow(row);
+            if (isNullRow(xssfRow)) {
+                continue;
+            }
+            ss = new String[columnCount];
+            Cell cell = null;
+            for (int col = 0; col < columnCount; col++) {
+                cell = xssfRow.getCell(col);
+                ss[col] = extractCellValue(cell);
+            }
+            list.add(ss);
+        }
+        return list;
     }
-    return list;
-  }
 
-  @Override
-  public List<String[]> read(XSSFWorkbook workbook, int fromRow, int columnCount) {
-    return read(workbook, 0, fromRow, columnCount);
-  }
-
-  private String extractCellValue(Cell cell) {
-    if (cell == null) {
-      return null;
+    @Override
+    public List<String[]> read(XSSFWorkbook workbook, int fromRow, int columnCount, int lastRowNum) {
+        return read(workbook, 0, fromRow, columnCount, lastRowNum);
     }
-    DataFormatter formatter = new DataFormatter();
-    String value = formatter.formatCellValue(cell);
-    return value;
-  }
 
-  private boolean isNullRow(XSSFRow xssfRow) {
-    if (xssfRow == null || xssfRow.getPhysicalNumberOfCells() <= 0) {
-      return true;
+    private String extractCellValue(Cell cell) {
+        if (cell == null) {
+            return null;
+        }
+        DataFormatter formatter = new DataFormatter();
+        String value = formatter.formatCellValue(cell);
+        return value;
     }
-    return false;
-  }
+
+    private boolean isNullRow(XSSFRow xssfRow) {
+        if (xssfRow == null || xssfRow.getPhysicalNumberOfCells() <= 0) {
+            return true;
+        }
+        return false;
+    }
 }
