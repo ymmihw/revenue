@@ -16,13 +16,13 @@
   <script
    th:src="${@mvcResourceUrlProvider.getForLookupPath('/resource/DataTables/js/jquery.dataTables.min.js')}"></script>
   <script
-   th:src="${@mvcResourceUrlProvider.getForLookupPath('/resource/js/dialog.js')}"></script>
+   th:src="${@mvcResourceUrlProvider.getForLookupPath('/resource/js/common.js')}"></script>
   <script
    th:src="${@mvcResourceUrlProvider.getForLookupPath('/resource/js/dataTables.js')}"></script>
   <script
-   th:src="${@mvcResourceUrlProvider.getForLookupPath('/resource/js/common.js')}"></script>
-  <script
    th:src="${@mvcResourceUrlProvider.getForLookupPath('/resource/js/home.js')}"></script>
+  <script
+   th:src="${@mvcResourceUrlProvider.getForLookupPath('/resource/js/dialog.js')}"></script>
  </div>
  <div layout:fragment="content">
   <div class="row">
@@ -36,9 +36,9 @@
      <div class="box-content">
       <div class="form-horizontal">
        <div class="form-group">
-        <label class="col-md-2 control-label">身份证</label>
+        <label class="col-md-2 control-label">证件号</label>
         <div class="col-md-4">
-         <input id="idCardNo" class="form-control" placeholder="身份证"></input>
+         <input id="ownerId" class="form-control" placeholder="证件号"></input>
         </div>
        </div>
       </div>
@@ -68,8 +68,11 @@
         style="width: 100%">
         <thead>
          <tr>
-          <th>身份证</th>
-          <th>详&nbsp;&nbsp;情</th>
+          <th>权利人</th>
+          <th>证件号</th>
+          <th>不动产单元号</th>
+          <th>面积</th>
+          <th>详情</th>
          </tr>
         </thead>
         <tbody>

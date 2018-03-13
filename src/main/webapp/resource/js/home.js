@@ -31,36 +31,24 @@ function format(d) {
 	}
 	return '<table class="details">' +
 		'<tr>' +
-		'<td class="left">请求时间:</td>' +
-		'<td>' + d.requestOn + '</td>' +
+		'<td class="left">owner:</td>' +
+		'<td>' + d.owner + '</td>' +
 		'</tr>' +
 		'<tr>' +
-		'<td class="left">请求数据:</td>' +
-		'<td>' + d.requestPayload + '</td>' +
+		'<td class="left">ownerId:</td>' +
+		'<td>' + d.ownerId + '</td>' +
 		'</tr>' +
 		'<tr>' +
-		'<td class="left">响应时间:</td>' +
-		'<td>' + d.responseOn + '</td>' +
+		'<td class="left">不动产单元号:</td>' +
+		'<td>' + d.estateId + '</td>' +
 		'</tr>' +
 		'<tr>' +
-		'<td class="left">响应数据:</td>' +
-		'<td>' + d.responsePayload + '</td>' +
+		'<td class="left">坐落:</td>' +
+		'<td>' + d.location + '</td>' +
 		'</tr>' +
 		'<tr>' +
-		'<td class="left">请求方式:</td>' +
-		'<td>' + d.method + '</td>' +
-		'</tr>' +
-		'<tr>' +
-		'<td class="left">请求路径:</td>' +
-		'<td>' + d.uri + '</td>' +
-		'</tr>' +
-		'<tr>' +
-		'<td class="left">请求人:&nbsp;&nbsp;&nbsp;</td>' +
-		'<td>' + d.user + '</td>' +
-		'</tr>' +
-		'<tr>' +
-		'<td class="left">是否成功:</td>' +
-		success +
+		'<td class="left">面积:</td>' +
+		'<td>' + d.area + '</td>' +
 		'</tr>' +
 		'</table>';
 }
@@ -74,7 +62,16 @@ function initDataTable() {
 		defaultDataTable({
 			columns : [
 				{
-					data : "idCardNo"
+					data : "owner"
+				},
+				{
+					data : "ownerId"
+				},
+				{
+					data : "estateId"
+				},
+				{
+					data : "area"
 				},
 				{
 					sClass : 'details-control center',
@@ -90,7 +87,7 @@ function initDataTable() {
 					d.columns = undefined;
 					d.order = undefined;
 					d.search = undefined;
-					d.idCardNo = $('#idCardNo').val();
+					d.ownerId = $('#ownerId').val();
 					return JSON.stringify(d);
 				}
 			}),

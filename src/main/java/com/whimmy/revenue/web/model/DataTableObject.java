@@ -8,7 +8,6 @@ import lombok.Setter;
 @Setter
 public class DataTableObject<T> {
 
-  private long recordsTotal;
   private long recordsFiltered;
   private List<T> data;
 

@@ -5,8 +5,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Criteria {
+public class TradeDto {
+  private String estateId;
+  private String location;
+  private String area;
+  private String owner;
   private String ownerId;
-  private int start;
-  private int length;
 }
