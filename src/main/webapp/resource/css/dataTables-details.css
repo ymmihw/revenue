@@ -1,0 +1,47 @@
+@charset "utf-8";
+.overflow {
+	overflow: hidden;/* 隐藏超出单元格的部分。 */
+	white-space: nowrap; /* 是为了保证无论单元格（TD）中文本内容有多少，  都不会自动换行，此时多余的内容会在水平方向撑破单元格。 */
+	text-overflow: ellipsis; /* 将被隐藏的那部分用省略号代替。  */
+	-o-text-overflow: ellipsis; /* 将被隐藏的那部分用省略号代替。 */ 
+	table-layout: fixed; /* 由于table-layout的默认值是auto， 
+	即table的宽高将取决于其内容的多寡，如果内容的体积无法估测，那么最终表格的呈现形式也无法保证了， 
+    fixed一下就好了。（注意：此样式是关键）  */
+}
+
+.successful {
+	color:green;
+}
+.failure {
+	color:red;
+}
+td.details-control {
+    background: url('details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+tr.shown td.details-control {
+    background: url('details_close.png') no-repeat center center;
+}
+table.details {
+	width: 100%;
+	cellpadding:5;/*单元边沿与单元内容之间的空间，以像素计*/
+	cellspacing:0;/*单元之间的空间，以像素计。*/
+	border:0;
+	padding-left:25px;
+	table-layout:fixed;
+	word-wrap:break-word;
+	word-break:break-all;
+}
+table.details td.left {
+	width: 15%;
+	text-align: center;
+	vertical-align:middle;
+	text-overflow:ellipsis; 
+	white-space:nowrap; 
+	overflow:hidden;
+}
+/* table.details td.right {
+	word-wrap:break-word;
+	word-break:break-all;
+	white-space:pre-line;
+} */

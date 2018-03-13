@@ -1,13 +1,85 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="template">
+<html xmlns="http://www.w3.org/1999/xhtml"
+ xmlns:th="http://www.thymeleaf.org"
+ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+ layout:decorator="template">
 <head>
 <title>HOME</title>
 </head>
 <body>
- <div layout:fragment="breadcrumb">
-  <li class="active">主页</li>
+ <div layout:fragment="css">
+  <link rel="stylesheet" type="text/css"
+   th:href="${@mvcResourceUrlProvider.getForLookupPath('/resource/DataTables/css/jquery.dataTables.min.css')}" />
+  <link rel="stylesheet" type="text/css"
+   th:href="${@mvcResourceUrlProvider.getForLookupPath('/resource/css/dataTables-details.css')}" />
+ </div>
+ <div layout:fragment="script">
+  <script
+   th:src="${@mvcResourceUrlProvider.getForLookupPath('/resource/DataTables/js/jquery.dataTables.min.js')}"></script>
+  <script
+   th:src="${@mvcResourceUrlProvider.getForLookupPath('/resource/js/dialog.js')}"></script>
+  <script
+   th:src="${@mvcResourceUrlProvider.getForLookupPath('/resource/js/dataTables.js')}"></script>
+  <script
+   th:src="${@mvcResourceUrlProvider.getForLookupPath('/resource/js/common.js')}"></script>
+  <script
+   th:src="${@mvcResourceUrlProvider.getForLookupPath('/resource/js/home.js')}"></script>
  </div>
  <div layout:fragment="content">
-  <h1>HOME</h1>
+  <div class="row">
+   <div class="box col-md-12">
+    <div class="box-inner">
+     <div class="box-header well" data-original-title="">
+      <h2>
+       <i class="glyphicon glyphicon-search"></i> 查询条件
+      </h2>
+     </div>
+     <div class="box-content">
+      <div class="form-horizontal">
+       <div class="form-group">
+        <label class="col-md-2 control-label">身份证</label>
+        <div class="col-md-4">
+         <input id="idCardNo" class="form-control" placeholder="身份证"></input>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
+
+  <div class="row" style="margin-right: 10px;">
+   <button class="btn btn-primary pull-right" id="searchButton">查询</button>
+  </div>
+  <div class="row">
+   <hr />
+  </div>
+
+  <div class="span9">
+   <div class="row">
+    <div class="box col-md-12">
+     <div class="box-inner">
+      <div class="box-header well" data-original-title="">
+       <h2>
+        <i class="glyphicon glyphicon-th"></i> 查询结果
+       </h2>
+      </div>
+      <div class="box-content">
+       <table id="dataTable" class="cell-border display"
+        style="width: 100%">
+        <thead>
+         <tr>
+          <th>身份证</th>
+          <th>详&nbsp;&nbsp;情</th>
+         </tr>
+        </thead>
+        <tbody>
+        </tbody>
+       </table>
+      </div>
+     </div>
+    </div>
+   </div>
+  </div>
  </div>
 </body>
 </html>
