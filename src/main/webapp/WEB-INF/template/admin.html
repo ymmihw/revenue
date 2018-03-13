@@ -1,25 +1,17 @@
 
-<html xmlns="http://www.w3.org/1999/xhtml"
- xmlns:th="http://www.thymeleaf.org"
- xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
- layout:decorator="template">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="template">
 <head>
 <title>管理员</title>
 </head>
 <body>
  <div layout:fragment="css">
-  <link rel="stylesheet" type="text/css"
-   th:href="${@mvcResourceUrlProvider.getForLookupPath('/resource/bootstrap-fileinput/css/fileinput.min.css')}"></link>
-  <link rel="stylesheet" type="text/css"
-   th:href="${@mvcResourceUrlProvider.getForLookupPath('/resource/css/dataTables-details.css')}" />
+  <link rel="stylesheet" type="text/css" th:href="${@mvcResourceUrlProvider.getForLookupPath('/resource/bootstrap-fileinput/css/fileinput.min.css')}"></link>
+  <link rel="stylesheet" type="text/css" th:href="${@mvcResourceUrlProvider.getForLookupPath('/resource/css/dataTables-details.css')}" />
  </div>
  <div layout:fragment="script">
-  <script
-   th:src="${@mvcResourceUrlProvider.getForLookupPath('/resource/bootstrap-fileinput/js/fileinput.min.js')}"></script>
-  <script
-   th:src="${@mvcResourceUrlProvider.getForLookupPath('/resource/bootstrap-fileinput/js/locales/zh.js')}"></script>
-  <script
-   th:src="${@mvcResourceUrlProvider.getForLookupPath('/resource/js/import.js')}"></script>
+  <script th:src="${@mvcResourceUrlProvider.getForLookupPath('/resource/bootstrap-fileinput/js/fileinput.min.js')}"></script>
+  <script th:src="${@mvcResourceUrlProvider.getForLookupPath('/resource/bootstrap-fileinput/js/locales/zh.js')}"></script>
+  <script th:src="${@mvcResourceUrlProvider.getForLookupPath('/resource/js/import.js')}"></script>
  </div>
  <div layout:fragment="content">
   <div class="span9">
@@ -28,15 +20,12 @@
      <div class="box-inner">
       <div class="box-header well" data-original-title=""></div>
       <div class="box-content">
-       <form id="a" method="POST" enctype="multipart/form-data"
-        th:action="@{/reader/upload}" th:method="post"
-        th:object="${uploadModel}">
+       <form id="a" method="POST" enctype="multipart/form-data" th:action="@{/admin/upload}" th:method="post" th:object="${uploadModel}">
         <div class="form-horizontal">
          <div class="form-group">
           <label class="col-md-2 control-label">文件</label>
           <div class="col-md-10">
-           <input name="file[]" id="file" type="file" th:field="*{file}"
-            class="file-loading" multiple="multiple"></input>
+           <input name="file[]" id="file" type="file" th:field="*{files}" class="file-loading" multiple="multiple"></input>
           </div>
          </div>
         </div>
