@@ -2,6 +2,7 @@ package com.whimmy.revenue.db.config;
 
 import java.util.Properties;
 import javax.sql.DataSource;
+import org.apache.commons.lang3.StringUtils;
 import org.h2.jdbcx.JdbcDataSource;
 import org.hibernate.dialect.H2Dialect;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,7 +20,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories(basePackages = "com.whimmy.revenue.db.repo")
 public class PersistenceConfig {
 
-  @Value("${revenue.home}")
+  @Value("${revenue.home:}")
   private String home;
 
   @Bean(value = "entityManagerFactory")
@@ -46,6 +47,9 @@ public class PersistenceConfig {
   @Qualifier(value = "dataSource")
   DataSource h2FileDataSource() {
     JdbcDataSource dataSource = new JdbcDataSource();
+    if (StringUtils.isEmpty(home)) {
+      home = "D:";
+    }
     dataSource.setUrl("jdbc:h2:/" + home + "/revenue;MODE=MySQL;AUTO_SERVER=TRUE");
     dataSource.setUser("");
     dataSource.setPassword("");
