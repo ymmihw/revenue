@@ -6,6 +6,6 @@
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <property name="context-root" value="revenue"/>
         <property name="java-output-path" value="/revenue/target/classes"/>
-        <property name="component.exclusion.patterns" value="WEB-INF/**/*.java"/>
+        <property name="component.exclusion.patterns" value="WEB-INF/**/*.java,WEB-INF/**/start.bat,WEB-INF/**/logback.xml,WEB-INF/**/application.properties"/>
     </wb-module>
 </project-modules>

@@ -61,7 +61,7 @@
   <dependency>
    <groupId>org.apache.poi</groupId>
    <artifactId>poi-ooxml</artifactId>
-   <version>3.16</version>
+   <version>3.17</version>
   </dependency>
   <dependency>
    <groupId>org.projectlombok</groupId>
@@ -146,7 +146,7 @@
     <artifactId>maven-war-plugin</artifactId>
     <configuration>
      <failOnMissingWebXml>false</failOnMissingWebXml>
-     <packagingExcludes>WEB-INF/**/*.java</packagingExcludes>
+     <packagingExcludes>WEB-INF/**/*.java,WEB-INF/**/start.bat,WEB-INF/**/logback.xml,WEB-INF/**/application.properties</packagingExcludes>
     </configuration>
    </plugin>
    <plugin>
