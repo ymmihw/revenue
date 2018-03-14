@@ -23,4 +23,14 @@ public class TradeService implements ITradeService {
   public Page<TradeEntity> findByOwnerIdContaining(String ownerId, Pageable pageable) {
     return repo.findByOwnerIdContaining(ownerId, pageable);
   }
+
+  @Override
+  public void deleteAll() {
+    repo.deleteAll();
+  }
+
+  @Override
+  public void save(Iterable<TradeEntity> entites) {
+    repo.save(entites);
+  }
 }

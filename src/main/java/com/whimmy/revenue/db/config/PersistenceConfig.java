@@ -5,6 +5,7 @@ import javax.sql.DataSource;
 import org.h2.jdbcx.JdbcDataSource;
 import org.hibernate.dialect.H2Dialect;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -18,6 +19,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories(basePackages = "com.whimmy.revenue.db.repo")
 public class PersistenceConfig {
 
+  @Value("${revenue.home}")
+  private String home;
 
   @Bean(value = "entityManagerFactory")
   LocalContainerEntityManagerFactoryBean jpaEntityManagerFactory(
@@ -35,7 +38,7 @@ public class PersistenceConfig {
     HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
     vendorAdapter.setDatabase(Database.H2);
     vendorAdapter.setGenerateDdl(true);
-    vendorAdapter.setShowSql(true);
+    vendorAdapter.setShowSql(false);
     return vendorAdapter;
   }
 
@@ -43,7 +46,7 @@ public class PersistenceConfig {
   @Qualifier(value = "dataSource")
   DataSource h2FileDataSource() {
     JdbcDataSource dataSource = new JdbcDataSource();
-    dataSource.setUrl("jdbc:h2:/D:/urcc;MODE=MySQL;AUTO_SERVER=TRUE");
+    dataSource.setUrl("jdbc:h2:/" + home + "/revenue;MODE=MySQL;AUTO_SERVER=TRUE");
     dataSource.setUser("");
     dataSource.setPassword("");
     return dataSource;
@@ -59,8 +62,8 @@ public class PersistenceConfig {
 
   private Properties _hibernateProperties() {
     Properties properties = new Properties();
-    properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
-    // properties.setProperty("hibernate.hbm2ddl.auto", "update");
+    // properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
+    properties.setProperty("hibernate.hbm2ddl.auto", "update");
     properties.setProperty("hibernate.connection.useUnicode", "true");
     properties.setProperty("hibernate.connection.characterEncoding", "UTF-8");
     properties.setProperty("hibernate.connection.charSet", "UTF-8");

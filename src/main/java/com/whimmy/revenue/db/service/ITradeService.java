@@ -8,4 +8,8 @@ public interface ITradeService {
   void save(TradeEntity entity);
 
   Page<TradeEntity> findByOwnerIdContaining(String ownerId, Pageable pageable);
+
+  void deleteAll();
+
+  void save(Iterable<TradeEntity> entites);
 }

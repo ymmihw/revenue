@@ -31,11 +31,11 @@ function format(d) {
 	}
 	return '<table class="details">' +
 		'<tr>' +
-		'<td class="left">owner:</td>' +
+		'<td class="left">权利人:</td>' +
 		'<td>' + d.owner + '</td>' +
 		'</tr>' +
 		'<tr>' +
-		'<td class="left">ownerId:</td>' +
+		'<td class="left">证件号码:</td>' +
 		'<td>' + d.ownerId + '</td>' +
 		'</tr>' +
 		'<tr>' +
