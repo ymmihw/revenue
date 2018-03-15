@@ -1,16 +1,17 @@
 package com.whimmy.revenue.web.controller;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.openxml4j.opc.OPCPackage;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import com.monitorjbl.xlsx.StreamingReader;
 import com.whimmy.revenue.db.entity.TradeEntity;
 import com.whimmy.revenue.db.service.ITradeService;
-import com.whimmy.revenue.util.ExcelReader;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,8 +33,6 @@ public class AdminController {
   private Logger logger = LoggerFactory.getLogger(this.getClass());
   @Autowired
   private ITradeService tradeService;
-  @Autowired
-  private ExcelReader excelReader;
 
   @RequestMapping(value = {"/admin", "/admin.html"})
   public String admin(Model model) {
@@ -71,22 +70,37 @@ public class AdminController {
           throws IOException, FileNotFoundException, InvalidFormatException {
 
         for (File file : files) {
-          try (XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream(file))) {
-            int lastRowNum = workbook.getSheetAt(0).getLastRowNum();
+          try (Workbook workbook =
+              StreamingReader.builder().rowCacheSize(100).bufferSize(4096).open(file);) {
+            Sheet sheetAt = workbook.getSheetAt(0);
+            List<TradeEntity> list = new ArrayList<>();
+            for (Iterator<Row> it = sheetAt.rowIterator(); it.hasNext();) {
+              Row row = it.next();
+              String[] strings = new String[6];
+              int i = 0;
+              for (Cell c : row) {
+                strings[i] = c.getStringCellValue();
+                i++;
+              }
+              if (!StringUtils.isNumeric(strings[0])) {
+                continue;
+              }
 
-            int step = 100;
-            for (int i = 0; i < lastRowNum; i += step) {
-              List<String[]> read = excelReader.read(workbook, i, 6, i + step - 1);
-
-              List<TradeEntity> a = read.stream().filter(e -> StringUtils.isNumeric(e[0]))
-                  .map(f -> new TradeEntity(f)).collect(Collectors.toList());
-              tradeService.save(a);
-              logger.debug("save {}/{}", i, lastRowNum);
+              list.add(new TradeEntity(strings));
+              if (list.size() >= 1000) {
+                logger.debug("save {}", list.size());
+                tradeService.save(list);
+                list.clear();
+              }
             }
+            tradeService.save(list);
+            logger.debug("save {}", list.size());
+            list.clear();
           }
         }
       };
     }.start();
+
     return "redirect:/admin";
   }
 

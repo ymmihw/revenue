@@ -16,13 +16,6 @@
   <outputDirectory>release</outputDirectory>
  </properties>
  <dependencies>
-  <!-- https://mvnrepository.com/artifact/org.apache.xerces/xercesImpl -->
-  <dependency>
-   <groupId>org.apache.xerces</groupId>
-   <artifactId>xercesImpl</artifactId>
-   <version>2.9.1</version>
-   <scope>runtime</scope>
-  </dependency>
   <dependency>
    <groupId>org.apache.commons</groupId>
    <artifactId>commons-lang3</artifactId>
@@ -66,10 +59,11 @@
    <version>1.1.0</version>
   </dependency>
   <dependency>
-   <groupId>org.apache.poi</groupId>
-   <artifactId>poi-ooxml</artifactId>
-   <version>3.17</version>
+   <groupId>com.monitorjbl</groupId>
+   <artifactId>xlsx-streamer</artifactId>
+   <version>1.2.1</version>
   </dependency>
+
   <dependency>
    <groupId>org.projectlombok</groupId>
    <artifactId>lombok</artifactId>
