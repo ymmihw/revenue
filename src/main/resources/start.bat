@@ -1,4 +1,4 @@
-title=urcc-ui
+title=revenue
 @echo off
 cd 
 set revenue=%~dp0
